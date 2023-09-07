@@ -1,0 +1,15 @@
+{% extends 'master_product.html' %}
+
+{% block title %}{{ product.name }}{% endblock %}
+{% block link %}{{ product.image.url }}{% endblock %}
+{% block img %}{{ product.image.url }}{% endblock %}
+{% block name %}{{ product.name }}{% endblock %}
+{% block value %}{% if product.discount_price %}
+                  {{ product.discount_price }}
+                  {% else %}
+                  {{ product.value }}
+                  {% endif %}{% endblock %}
+{% block cart %}{{ product.get_add_to_cart_url }}{% endblock %}
+{% block description %}{{ product.description }}{% endblock %}
+
+

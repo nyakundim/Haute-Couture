@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+ <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+ <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap" rel="stylesheet">
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <link rel="icon" href="{% static 'images/fav.png' %}">
+    <style>
+        *{font-family: JetBrains Mono;
+    font-weight: 400;
+    word-wrap: break-word; color: #5C5C5C;}
+     a{text-decoration: none; color: #5C5C5C;}
+     body{
+            display: none;
+        }
+
+        @media (min-width: 992px){
+           body {
+                display: block;
+            }
+        }
+    </style>
+    <title>{% block title %} {% endblock %}</title>
+</head>
+
+
+{# BODY #}
+<body>
+
+{# DETAILED PRODUCT VIEW #}
+{% block content %}
+<div class="row">
+<div class="col-5">
+    <picture>
+        <source type="image/webp" srcSet="{% block link%}{% endblock %}" class="card-img-top"/>
+        <img src="{% block img%}{% endblock %}"  alt="" class="card-img-top">
+    </picture>
+</div>
+  <div class="col-6">
+      <a href="{% url 'athletic' %}">&lt;<u>back</u></a>
+      <p class="mb-0" style="font-size: 2vw">{% block name%}{% endblock %}</p>
+      <p class="mb-2" style="font-size: 1.5vw">Ksh. {% block value%}{% endblock %}</p>
+      <p style="font-size: 1vw">
+          <span class="text-black" style="font-size: 1.3vw">Description</span>
+          <br>
+          <span> {% block description %}{% endblock %}</span></p>
+
+{#  <form class="d-flex justify-content-left">#}
+{#              <!-- Default input -->#}
+{#              <input type="number" value="1" aria-label="Search" class="form-control" style="width: 100px">#}
+{#              <button class="btn btn-primary btn-md my-0 p" type="submit"> Confirm Quantity#}
+{#                <i class="fas fa-shopping-cart ml-1"></i>#}
+{#              </button>#}
+
+{#            </form>#}
+
+            <a href="{% block cart %}{% endblock %}" class="btn bg-black text-light btn-md my-0 " >Add to cart
+                <i class="fas fa-shopping-cart ml-1"></i>
+            </a>
+
+{#            {{ product.get_quantity_in_cart }}#}
+{#            <a href="{{ product.get_remove_from_cart_url }}" class="btn btn-danger btn-md my-0 p" >Remove From cart#}
+{#                <i class="fas fa-trash ml-1"></i>#}
+{#            </a>#}
+
+
+    </div>
+  </div>
+
+
+
+{% endblock %}
+</body>
+</html>

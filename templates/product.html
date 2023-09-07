@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/e27a005fd4.js" crossorigin="anonymous"></script>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <link rel="icon" href="{% static 'images/fav.png' %}">
+    <style>
+
+        *{font-family: JetBrains Mono;
+    font-weight: 400;
+    word-wrap: break-word; color: #5C5C5C;}
+     a{text-decoration: none; color: #5C5C5C;}
+        .active{font-weight: bold; text-decoration: underline;}
+    </style>
+    <title>Athletics</title>
+</head>
+
+
+
+{# BODY #}
+<body class="mx-3">
+
+{# NAVIGATION #}
+{% block nav%}
+    <ul class="nav">
+    <li class="nav-item athletics">
+        <a class="nav-link" href="{% url 'athletic' %}">ATHLETIC</a>
+    </li>
+  <li class="nav-item casual">
+     <a class="nav-link" href="{% url 'casual' %}">CASUAL</a>
+  </li>
+  <li class="nav-item street">
+      <a class="nav-link" href="{% url 'streetwear' %}">STREETWEAR</a>
+  </li>
+  <li class="nav-item" >
+    <a class="nav-link" id="brand" href="{% url 'home' %}">Haute Couture</a>
+  </li>
+     {%if user.is_authenticated %}
+     <li class="nav-item contact" >
+     <a class="nav-link" href="{% url 'order-summary' %}">VIEW CART</a>
+  </li>
+     {% endif %}
+    <li class="nav-item about" >
+     <a class="nav-link ms-2" data-bs-toggle="offcanvas" href="#offcanvasRight" role="button" aria-controls="offcanvasExample"><i class="fa-solid fa-filter" style="color: #0f0f0f;"></i></a>
+  </li>
+
+
+
+
+{#    <li class="nav-item about">#}
+{#    <a class="nav-link" aria-current="page" data-bs-toggle="offcanvas" href="#aboutoffcanvas" style="color: #5C5C5C;">ABOUT</a>#}
+{#  </li>#}
+{#  <li class="nav-item contact">#}
+{#    <a class="nav-link" aria-current="page" data-bs-toggle="offcanvas" href="#contactoffcanvas" style="color: #5C5C5C;">CONTACT</a>#}
+{#  </li>#}
+
+</ul>
+{% endblock %}
+
+    <br><br><br><br>
+
+
+{# PRODUCT CARD #}
+<div class="row">
+{% for x in data%}
+
+<div class="card p-0 mb-4 ms-3" style="width: 23vw">
+    <a href="{{ x.get_absolute_url }}">
+    <picture>
+        <source type="image/webp" srcSet="{{ x.image.url }}" class="card-img-top"/>
+        <img src="{{ x.image.url }}"  alt="" class="card-img-top">
+    </picture>
+  <div class="card-body ps-3">
+      <h5 class="card-title">{{ x.category }}</h5>
+        <h6 class="card-title">{{ x.name }}</h6>
+        <p class="card-text">Ksh. {{ x.value }}</p>
+
+{#        <a href="#" class="btn bg-black text-light">Add to Cart</a>#}
+  </div>
+    </a>
+</div>
+    {% endfor %}
+</div>
+
+
+
+<div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title text-dark-emphasis" id="offcanvasRightLabel">Product Filters</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+{#      <a href="{% url 'all-products' %}"><u>View all Products</u></a>#}
+      <br><br>
+
+      <form action="/filter" method="POST">
+          {% csrf_token %}
+{#            <div class="form-floating mb-3">#}
+{#            <input type="text" class="form-control pb-0" id="floatingname" placeholder="Name" name="username">#}
+{#            <label for="floatingname">Name</label>#}
+{#          </div>#}
+          <p style="color: black; font-weight: normal">Categories</p>
+
+        <select class="form-select form-floating" aria-label="Default select example" id="filter" name="category" required>
+            <option value="All products" selected>All products</option>
+            <option value="Athletic">Athletic</option>
+            <option value="Casual">Casual</option>
+            <option value="Streetwear">Streetwear</option>
+        </select>
+          <br>
+
+        <p style="color: black; font-weight: normal">Sort by Price</p>
+
+        <select class="form-select form-floating" aria-label="Default select example" id="filter" name="sort" required>
+            <option value="Low to High" selected>Low to High</option>
+            <option value="High to low">High to low</option>
+        </select>
+          <br>
+          <button class="btn bg-black text-white" type="submit">Apply Filters</button>
+      </form>
+{#      <a href="{% url 'low-high'  %}"><u>Low to High</u></a>#}
+{#      <br><br>#}
+{#      <a href="{% url 'high-low' %}"><u>High to Low</u></a>#}
+  </div>
+</div>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+
+.nav-link,#login{color: #5C5C5C;
+    font-size: 1.156vw;
+    font-family: JetBrains Mono;
+    font-weight: 400;
+    word-wrap: break-word;
+}
+
+
+#brand{font-size: 1.9vw; margin-top: 4.5vh;position: absolute;left: 42vw}
+
+.nav-link:hover{color: #1a1d20}
+
+.active{color: #1a1d20;}
+.casual{position: absolute; left: 15.87vw;margin-top: 5.55vh;}
+.street{position: absolute;left: 23.22vw;margin-top: 5.55vh;}
+.about{position: absolute;left: 73.88vw;margin-top: 5.55vh;}
+.contact{position: absolute;left: 80.87vw;margin-top: 5.55vh;}
+.login{position: absolute;left: 88.385vw;}
+.athletics{position: absolute;left: 6.5vw;margin-top: 5.55vh;}
+
+#login{border: none;width: 11.6vw;height: 13.963vh;background: black;color: #979797;
+    padding: 1vh 0 0;
+    text-align: center;}
+
+
+
+

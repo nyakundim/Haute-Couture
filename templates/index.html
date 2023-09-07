@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap" rel="stylesheet">
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <link rel="icon" href="{% static 'images/fav.png' %}">
+    <style>
+        body{
+            display: none;
+        }
+
+        @media (min-width: 992px){
+           body {
+                display: block;
+            }
+        }
+    input[id="mail"]{border: none;outline: none;left: 10vw; top: 92vh; position: absolute; color: #5C5C5C; font-size: 1.156vw; font-family: JetBrains Mono; font-weight: 400; word-wrap: break-word}
+    #signupmodal{font-size: 1vw;}
+    *{font-family: JetBrains Mono;
+    font-weight: 400;
+    word-wrap: break-word;}
+
+    *input{height: 1.8vh;}
+    </style>
+    <title>Haute Couture</title>
+</head>
+
+
+
+
+
+{#BODY#}
+
+<body>
+
+
+
+
+{#NAVIGATION#}
+<ul class="nav">
+    <li class="nav-item athletics">
+        <a class="nav-link" href="{% url 'athletic' %}">ATHLETIC</a>
+    </li>
+  <li class="nav-item casual">
+     <a class="nav-link" href="{% url 'casual' %}">CASUAL</a>
+  </li>
+  <li class="nav-item street">
+      <a class="nav-link" href="{% url 'streetwear' %}">STREETWEAR</a>
+  </li>
+  <li class="nav-item" >
+    <a class="nav-link active" id="brand" href="{% url 'home' %}">Haute Couture</a>
+  </li>
+    <li class="nav-item about">
+    <a class="nav-link" aria-current="page" data-bs-toggle="offcanvas" href="#aboutoffcanvas" style="color: #5C5C5C;">ABOUT</a>
+  </li>
+  <li class="nav-item contact">
+    <a class="nav-link" aria-current="page" data-bs-toggle="offcanvas" href="#contactoffcanvas" style="color: #5C5C5C;">CONTACT</a>
+  </li>
+    {% if user.is_authenticated %}
+    <li class="nav-item login">
+        <form action="/logout" method="POST">
+            {% csrf_token %}
+            <button id="login">LOGOUT</button>
+        </form>
+
+    </li>
+        {% else %}
+	<li class="nav-item login">
+        <button id="login" data-bs-toggle="modal" data-bs-target="#loginmodal">LOGIN</button>
+    </li>
+    {% endif %}
+
+</ul>
+
+
+<br><br><br><br><br><br><br>
+
+
+
+
+
+{#BACKGROUND IMAGE#}
+ <img  class="Rectangle2" style="width: 28vw; height: 78vh; left: 36vw; top: 15vh; position: absolute" src="{% static 'images/index.jpg' %}"  alt="image"/>
+
+
+
+
+
+
+{#CREATE ACCOUNT BUTTON#}
+
+{% if user.is_authenticated %}
+    <a href="{% url 'order-summary' %}">
+    <button id="signupbtn" type="submit" class="btn bg-black" style="width: 100vw; font-family: JetBrains Mono;font-weight: 400;word-wrap: break-word;height: 9.5vh; top: 48vh; position: absolute;font-size: 1.5vw;color: #979797;border-radius: 0">
+        Cart [{{ current_user }}]
+    </button>
+    </a>
+
+{% else %}
+    <button id="signupbtn" type="button" class="btn bg-black" data-bs-toggle="modal" data-bs-target="#signupmodal" style="width: 100vw; font-family: JetBrains Mono;font-weight: 400;word-wrap: break-word;height: 9.5vh; top: 48vh; position: absolute;font-size: 2.156vw;color: #979797;border-radius: 0">
+  CREATE ACCOUNT
+   </button>
+{% endif %}
+
+
+{#<button id="signupbtn" type="button" class="btn bg-black" data-bs-toggle="modal" data-bs-target="#signupmodal" style="width: 100vw; font-family: JetBrains Mono;font-weight: 400;word-wrap: break-word;height: 9.5vh; top: 48vh; position: absolute;font-size: 2.156vw;color: #979797;border-radius: 0">#}
+{#  CREATE ACCOUNT#}
+{#</button>#}
+
+
+
+
+
+{#SIGNUP MODAL #}
+<form action="/signup" method="POST">
+    {% csrf_token %}
+<div class="modal fade" id="signupmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel"><strong>Create an Account</strong></h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control pb-0" id="floatingname" placeholder="Name" name="username">
+            <label for="floatingname">Name</label>
+          </div>
+
+        <div class="form-floating mb-3">
+            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="email">
+            <label for="floatingInput">Email Address</label>
+        </div>
+
+        <div class="form-floating input-group">
+            <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password" aria-describedby="button-addon2">
+            <label for="floatingPassword">Password</label>
+            <button class="btn btn-outline-dark bnt" type="button" id="button-addon1" onclick="Toggle()">show</button>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn bg-opacity-100" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn bg-black" style="color: white">Create Account</button>
+      </div>
+    </div>
+  </div>
+</div>
+</form>
+
+
+
+
+{#LOGIN MODAL#}
+<form action="/login" method="POST">
+    {% csrf_token %}
+<div class="modal fade" id="loginmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel"><strong>Login to your Account</strong></h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="floatingInput" placeholder="username" name="username">
+            <label for="floatingInput">Name</label>
+        </div>
+
+        <div class="form-floating input-group">
+            <input type="password" class="form-control pass" id="floatingPassword2" placeholder="Password" name="password">
+            <label for="floatingPassword2">Password</label>
+            <button class="btn btn-outline-dark bnt" type="button" id="button-addon2" onclick="Toggle2()">show</button>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn bg-opacity-100" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn bg-black" style="color: white">Login</button>
+      </div>
+    </div>
+  </div>
+</div>
+</form>
+
+
+
+
+
+{#ABOUT OFFCANVAS#}
+<div class="offcanvas offcanvas-end" tabindex="-1" id="aboutoffcanvas" aria-labelledby="offcanvasExampleLabel">
+  <div class="offcanvas-header">
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <div>
+        <strong>About Haute Couture</strong>
+      <br><br>
+
+Haute Couture is a high-end designer clothing brand that creates exclusive garments for the most discerning clients. Our garments are made with the finest materials with major focus on craftsmanship, and are designed to flatter and enhance the wearer's figure.
+        <br><br>
+We believe that fashion should be a work of art, and we strive to create garments that are both beautiful and functional. Our designs are inspired by the latest trends, but we also take into account the individual needs and preferences of our clients.
+        <br>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+{#CONTACT OFFCANVAS#}
+<div class="offcanvas offcanvas-end" tabindex="-1" id="contactoffcanvas" aria-labelledby="offcanvasExampleLabel">
+  <div class="offcanvas-header">
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <div>
+        <strong>Get in Touch</strong>
+        <br><br>
+        <form action="/feedback" method="POST">
+            {% csrf_token %}
+            <div class="form-floating">
+                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" name="feed"></textarea>
+                <label for="floatingTextarea">Type something...</label>
+                <br>
+                <button type="submit" class="btn bg-black" style="color: white">Send Message</button>
+            </div>
+        </form>
+
+    </div>
+  </div>
+</div>
+
+
+
+{#MAILING LIST INPUT#}
+
+<form action=""><input type="email" id="mail" placeholder="JOIN MAILING LIST-->"></form>
+
+
+
+
+
+
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script>
+ function Toggle() {
+            let temp = document.getElementById("floatingPassword");
+            let x = document.getElementById("button-addon1");
+
+            if (temp.type === "password") {
+                temp.type = "text";
+                x.innerText="hide";
+            }
+            else {
+                temp.type = "password";
+                x.innerText="show";
+            }
+        }
+function Toggle2() {
+            let temp = document.getElementById("floatingPassword2");
+            let x = document.getElementById("button-addon1");
+
+
+            if (temp.type === "password") {
+                temp.type = "text";
+                 x.innerText="hide";
+            }
+            else {
+                temp.type = "password";
+                 x.innerText="show";
+            }
+        }
+</script>
+
+</body>
+</html>
