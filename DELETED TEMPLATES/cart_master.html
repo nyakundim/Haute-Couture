@@ -1,0 +1,24 @@
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <title>Title</title>#}
+{#</head>#}
+{#<body>#}
+{#{% block cart %}#}
+{#    {% if user.is_authenticated %}#}
+{#    <li class="nav-item login">#}
+{#        <form action="/order-summary" method="POST">#}
+{#            {% csrf_token %}#}
+{#            <button id="login">VIEW CART</button>#}
+{#        </form>#}
+{##}
+{#    </li>#}
+{#        {% else %}#}
+{#	<li class="nav-item login">#}
+{#        <button id="login"></button>#}
+{#    </li>#}
+{#    {% endif %}#}
+{#{% endblock %}#}
+{#</body>#}
+{#</html>#}
