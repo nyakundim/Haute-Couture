@@ -76,6 +76,9 @@
                 <a href="{% url 'reduce-quantity-item' order_item.item.pk %}"><i class="fas fa-minus mr-2"></i></a>
                 {{ order_item.quantity }}
                 <a href="{% url 'add-to-cart' order_item.item.pk %}"><i class="fas fa-plus ml-2"></i></a>
+                 <a href="{% url 'reduce-quantity-item' order_item.item.pk %}">
+                <p class="float-right">reduce quantity</p>
+                </a>
             </td>
             <td>
             {% if order_item.item.discount_price %}
@@ -87,7 +90,6 @@
              <a href="{% url 'remove-from-cart' order_item.item.pk %}">
                 <p class="float-right">remove item</p>
              </a>
-
             </td>
         </tr>
 
@@ -98,7 +100,7 @@
 
          <tr>
             <td colspan="5">
-                <a href="{% url 'product' %}" class="btn bg-black text-light float-right">Continue Shopping</a>
+                <a href="{% url 'athletic' %}" class="btn bg-black text-light float-right">Continue Shopping</a>
             </td>
         </tr>
 

@@ -36,6 +36,7 @@ class Feedback(models.Model):
 
     class Meta:
         db_table = "Feedback"
+        verbose_name_plural = "Feedback"
 
 
 class OrderItem(models.Model):
@@ -78,7 +79,6 @@ class Order(models.Model):
         for order_item in self.items.all():
             total += order_item.get_final_price()
         return total
-
 
 # class Casual(models.Model):
 #     name = models.CharField(max_length=100)
@@ -134,5 +134,3 @@ class Order(models.Model):
 #
 #     class Meta:
 #         db_table = "Streetwear"
-
-

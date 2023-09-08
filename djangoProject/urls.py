@@ -29,8 +29,8 @@ from .views import (
 from django.conf import settings
 from django.conf.urls.static import static
 
-
 urlpatterns = [
+    # path('admin/', include('django_admin_filter.urls')),
     path('admin/', admin.site.urls),
     path('', views.index, name="home"),  # INDEX PAGE
     path('athletic', views.product, name="athletic"),  # PRODUCT PAGE
@@ -56,3 +56,7 @@ urlpatterns = [
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+# admin.site.site_header = "Haute Couture Admin"
+# admin.site.site_title = "Admin"
+admin.site.index_title = "Haute Couture"
