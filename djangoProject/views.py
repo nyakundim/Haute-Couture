@@ -49,7 +49,7 @@ def handlelogin(request):
 
 def userlogout(request):
     if request.method == "POST":
-        del request.session['user']
+        # del request.session['user']
         logout(request)
     return redirect('home')
 
